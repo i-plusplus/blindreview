@@ -5,7 +5,7 @@ from flask_login import login_user, login_required, logout_user
 from . import db
 import random
 import time
-from .email_sender import send_email
+from email_sender import send_email
 auth = Blueprint('auth', __name__)
 
 

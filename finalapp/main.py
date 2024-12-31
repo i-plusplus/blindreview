@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from .models import Feedback
 import time
 from time import strftime, localtime
-from .email_sender import send_email
+from email_sender import send_email
 # this is basically create component in the application, that can imported along with all its routes, etc.
 main = Blueprint('main', __name__)
 
