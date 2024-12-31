@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register & Login</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .switch a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+  <!-- Registration Form -->
+  <div id="register-form" class="form-container">
+    <h2>Register</h2>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="register-email" required>
+    </div>
+    <button onclick="sendOtp()">Send OTP</button>
+    <div class="form-group" id="otp-section" style="display: none;">
+      <label for="otp">OTP</label>
+      <input type="text" id="otp" required>
+    </div>
+    <button id="verify-otp-btn" onclick="verifyOtp()" style="display: none;">Verify OTP</button>
+    <div class="switch">
+      Already have an account? <a href="#" onclick="toggleForms('login')">Login</a>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <div id="login-form" class="form-container" style="display: none;">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+    </div>
+    <button onclick="login()">Login</button>
+    <div class="switch">
+      Don't have an account? <a href="#" onclick="toggleForms('register')">Register</a>
+    </div>
+  </div>
+</div>
+
+<script>
+        // Toggle between forms
+        function toggleForms(form) {
+            document.getElementById('register-form').style.display = form === 'register' ? 'block' : 'none';
+            document.getElementById('login-form').style.display = form === 'login' ? 'block' : 'none';
+        }
+
+        // Simulate sending OTP
+        function sendOtp() {
+            const email = document.getElementById('register-email').value;
+            if (!email) {
+                alert('Please enter a valid email.');
+                return;
+            }
+            // Send OTP to backend (replace with API call)
+            console.log(`Sending OTP to ${email}`);
+            //alert('OTP sent to your email.');
+
+            const response = fetch("http://127.0.0.1:5000/send-otp", {
+                  method: "POST", // HTTP method
+                  headers: {
+                    "Content-Type": "application/json", // Setting content type to JSON
+                  },
+                  body: JSON.stringify({"email":email}),
+                });
+            // Show OTP input and verify button
+            document.getElementById('otp-section').style.display = 'block';
+            document.getElementById('verify-otp-btn').style.display = 'block';
+        }
+
+        // Simulate verifying OTP
+        function verifyOtp() {
+            const otp = document.getElementById('otp').value;
+            const email = document.getElementById('register-email').value;
+            if (!otp) {
+                alert('Please enter the OTP.');
+                return;
+            }
+            // Verify OTP with backend (replace with API call)
+            const response = fetch("http://127.0.0.1:5000/verify-otp", {
+                  method: "POST", // HTTP method
+                  headers: {
+                    "Content-Type": "application/json", // Setting content type to JSON
+                  },
+                  body: JSON.stringify({"email":email, "otp":otp}),
+                });
+            console.log(`Verifying OTP: ${otp}`);
+            alert('OTP verified. Registration complete.');
+        }
+
+        // Simulate login
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('password').value;
+            if (!email || !password) {
+                alert('Please enter both email and password.');
+                return;
+            }
+            // Perform login with backend (replace with API call)
+            console.log(`Logging in with Email: ${email}`);
+            alert('Login successful.');
+        }
+    </script>
+</body>
+</html>

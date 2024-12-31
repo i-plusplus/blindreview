@@ -1,0 +1,56 @@
+feedback-platform/
+├── app/
+│   ├── __init__.py           # Application factory
+│   ├── models.py             # Database models
+│   ├── routes/
+│   │   ├── __init__.py       # Route initialization
+│   │   ├── auth.py           # Authentication routes
+│   │   ├── feedback.py       # Feedback-related routes
+│   │   ├── analytics.py      # Analytics routes
+│   │   ├── translate.py      # Translation routes
+│   ├── utils/
+│   │   ├── __init__.py       # Utility functions
+│   │   ├── moderation.py     # AI moderation logic
+│   │   ├── emailer.py        # Email notification logic
+│   ├── extensions.py         # Extensions (DB, JWT, etc.)
+│   ├── config.py             # Configuration settings
+├── migrations/               # Database migration files (auto-generated)
+├── static/                   # Static files (CSS, JS)
+├── templates/                # HTML templates for frontend
+│   ├── index.html            # Main page
+│   ├── analytics.html        # Analytics dashboard
+│   ├── login.html            # Login page
+│   ├── register.html         # Registration page
+├── tests/                    # Unit tests
+│   ├── test_auth.py          # Test cases for authentication
+│   ├── test_feedback.py      # Test cases for feedback
+├── .env                      # Environment variables (API keys, DB URI)
+├── requirements.txt          # Python dependencies
+├── run.py                    # Entry point for the application
+├── README.md                 # Project documentation
+
+# Directory Structure
+.
+├── app
+│   ├── __init__.py
+│   ├── routes.py
+│   ├── models.py
+│   ├── utils.py
+│   ├── static
+│   │   ├── styles.css
+│   ├── templates
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── dashboard.html
+├── migrations
+│   ├── ...
+├── tests
+│   ├── test_routes.py
+│   ├── test_models.py
+├── .env
+├── .gitignore
+├── requirements.txt
+├── run.py
+├── Dockerfile
+├── Procfile
+├── README.md

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/feedback.css') }}">
+{% endblock %}
+{% block content %}
+<h1 class="title">
+  Welcome, {{ name }}!
+</h1>
+
+
+<div class="feedback-container">
+  <h1>Feedback List</h1>
+
+  <!-- Feedback Group for John Doe -->
+  {% for feedback in feedbacks %}
+  <div class="feedback-group has-text-left">
+    <div class="person-name">{{feedback.time}}</div>
+  <p class="label">
+    Positive Feedback
+  </p>
+    <div class="feedback positive-feedback">
+
+      <ul>
+        <li>
+          <div class="feedback-item">
+            <p class="feedback-text"><pre class="has-text-left">{{feedback.good}}</pre></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p class="label">Negative Feedback</p>
+
+      <div class="feedback negative-feedback">
+
+      <ul>
+        <li>
+          <div class="feedback-item">
+            <p class="feedback-text"><pre class="has-text-left">{{feedback.bad}}</pre></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

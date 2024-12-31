@@ -1,0 +1,123 @@
+/* General Body Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0px;
+    padding: 0px;
+
+    justify-content: center;
+    /*align-items: flex-start;*/
+    min-height: 100vh;
+    padding-top: 0px;
+}
+
+.feedback-container {
+    width:94vw;
+    padding: 0px;
+    margin: 0px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Person Feedback Group Styles */
+.feedback-group {
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.1);
+     border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 5px;
+    background: #f4f4f4;
+}
+
+.person-name {
+    font-size: 1.5rem;
+    color: #333;
+    font-size: 100%;
+
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ddd;
+}
+
+.hero-body{
+padding: 3vw;
+}
+/* Section Styles for Positive and Negative Feedback */
+.feedback {
+    max-width: 100vw;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+.feedback h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.feedback ul {
+    list-style: none;
+    padding: 0;
+}
+
+.feedback-item {
+
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+label {
+float: left;
+font-weight: bold;
+color: #000000;
+}
+.label {
+font-weight: bold;
+color: #000000;
+
+}
+textarea {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: auto; /* Automatically adjust height */
+    min-height: 200px; /* Minimum height to accommodate multiple lines */
+    box-sizing: border-box;
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow-y: auto; /* Allow scrolling if content exceeds */
+    resize: none; /* Disables resizing of the textarea */
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.feedback-item:hover {
+    background-color: #eaeaea;
+}
+
+.feedback-text {
+    align: left;
+    font-size: 2rem;
+    color: #555;
+}
+
+.positive-feedback .feedback-item {
+    border-left: 5px solid #28a745;
+}
+
+.negative-feedback .feedback-item {
+    border-left: 5px solid #dc3545;
+}

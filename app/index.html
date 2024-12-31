@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anonymous Feedback</title>
+  <script>
+        async function sendFeedback() {
+            const recipient = document.getElementById('recipient').value;
+            const feedback = document.getElementById('feedback').value;
+
+            const response = await fetch('http://127.0.0.1:5000/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ recipient, feedback })
+            });
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        async function fetchFeedback() {
+            const recipient = document.getElementById('recipientFeedback').value;
+
+            const response = await fetch(`http://127.0.0.1:5000/feedback/${recipient}`);
+            const data = await response.json();
+
+            let feedbackDisplay = '';
+            data.forEach(fb => {
+                feedbackDisplay += `<p>${fb.feedback} - Status: ${fb.status}</p>`;
+            });
+
+            document.getElementById('feedbacks').innerHTML = feedbackDisplay;
+        }
+    </script>
+</head>
+<body>
+<img id="analyticsPlot" />
+<h1>Anonymous Feedback Platform</h1>
+
+<h2>Send Feedback</h2>
+<input type="text" id="recipient" placeholder="Recipient Email">
+<textarea id="feedback" placeholder="Write feedback..."></textarea>
+<button onclick="sendFeedback()">Send</button>
+
+<h2>View Feedback</h2>
+<input type="text" id="recipientFeedback" placeholder="Your Username">
+<button onclick="fetchFeedback()">Fetch Feedback</button>
+<div id="feedbacks"></div>
+</body>
+</html>

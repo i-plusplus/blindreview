@@ -1,0 +1,9 @@
+<img id="analyticsPlot" />
+<script>
+    async function loadAnalytics() {
+        const response = await fetch('http://127.0.0.1:5000/analytics/recipient_username');
+        const data = await response.json();
+        document.getElementById('analyticsPlot').src = 'data:image/png;base64,' + data.plot;
+    }
+    loadAnalytics();
+</script>

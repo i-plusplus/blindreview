@@ -1,0 +1,102 @@
+
+# Code Files
+
+## app/__init__.py
+```python
+```
+
+## app/routes.py
+```python
+from flask import request, jsonify, render_template
+from app import app, db
+from app.models import Feedback
+from app.utils import analyze_sentiment, moderate_content
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/feedback', methods=['POST'])
+def send_feedback():
+    data = request.json
+    feedback = Feedback(content=data['content'], recipient=data['recipient'])
+    sentiment = analyze_sentiment(data['content'])
+
+    if moderate_content(data['content']):
+        return jsonify({'message': 'Inappropriate content detected'}), 400
+
+    feedback.sentiment = sentiment
+    db.session.add(feedback)
+    db.session.commit()
+    return jsonify({'message': 'Feedback sent successfully'})
+
+@app.route('/analytics/<recipient>', methods=['GET'])
+def get_analytics(recipient):
+    feedbacks = Feedback.query.filter_by(recipient=recipient).all()
+    sentiments = [f.sentiment for f in feedbacks]
+    return jsonify({'feedback_count': len(feedbacks), 'sentiments': sentiments})
+```
+
+## app/models.py
+```python
+from app import db
+
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    recipient = db.Column(db.String(100), nullable=False)
+    sentiment = db.Column(db.String(10), nullable=True)
+```
+
+## app/utils.py
+```python
+from textblob import TextBlob
+
+def analyze_sentiment(text):
+    analysis = TextBlob(text)
+    return 'Positive' if analysis.sentiment.polarity > 0 else 'Negative' if analysis.sentiment.polarity < 0 else 'Neutral'
+
+def moderate_content(text):
+    banned_words = ['badword1', 'badword2']
+    return any(word in text.lower() for word in banned_words)
+```
+
+## run.py
+```python
+from app import app
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+## requirements.txt
+```
+Flask
+Flask-SQLAlchemy
+Flask-JWT-Extended
+Flask-Mail
+TextBlob
+```
+
+## Dockerfile
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 5000
+
+CMD ["python", "run.py"]
+```
+
+## Procfile
+```
+web: gunicorn run:app
+```
+
+## README.md
+(As provided earlier)
